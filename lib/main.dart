@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mix_it/screens/drink_details/drink_details.dart';
+
 import 'package:mix_it/screens/home_page/home_page.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
