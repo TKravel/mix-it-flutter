@@ -10,9 +10,9 @@ class Network {
   postRequest(String url, Map<String, String>? params) async {
     String routeBuilder = 'api/json/$_apiKey$url';
     Uri endPoint = Uri.https(_authority, routeBuilder, params);
-    // print(endPoint);
+    print(endPoint);
     var response = await http.get(endPoint);
-    print('Response status: ${response.statusCode}');
+    print('Response status: $url ${response.statusCode}');
     // print('Response body: ${response.body}');
     return response.body;
   }

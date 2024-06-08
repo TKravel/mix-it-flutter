@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mix_it/widgets/carousel/carousel.dart';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -20,6 +21,7 @@ class DrinkDetails extends StatefulWidget {
 
 class _DrinkDetails extends State<DrinkDetails> {
   late final Drink drinkData;
+  late final List<Drink> similarDrinks;
   String init = 'starting';
 
   @override
@@ -49,17 +51,22 @@ class _DrinkDetails extends State<DrinkDetails> {
       endDrawer: SideNav(
         context: context,
       ),
-      body: ListView(children: [
-        Column(
-          children: [
-            if (init == 'starting')
-              const Text('Loading')
-            else
-              DrinkInfo(drinkData),
-            // SimilarDrinks(),
-          ],
-        ),
-      ]),
+      body: ListView(
+        children: [
+          if (init == 'starting')
+            const Text('Loading')
+          else
+            Column(
+              children: [
+                DrinkInfo(drinkData),
+                Carousel(
+                  ingredients: drinkData.ingredients!,
+                ),
+              ],
+            )
+          // SimilarDrinks(),
+        ],
+      ),
     );
   }
 }

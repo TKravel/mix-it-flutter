@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:mix_it/screens/drink_details/drink_details.dart';
 import 'package:mix_it/screens/home_page/componets/landing_hero.dart';
 import 'package:mix_it/widgets/drink_list/selection_grid.dart';
 import 'package:mix_it/widgets/side_nav.dart';
