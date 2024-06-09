@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:mix_it/widgets/carousel/carousel.dart';
-import 'dart:convert';
+// ignore: unused_import
 import 'dart:developer';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:mix_it/utils/constants/constants.dart';
+import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
+import 'package:mix_it/widgets/carousel/carousel.dart';
 
 import 'package:mix_it/widgets/side_nav.dart';
 import 'package:mix_it/models/drink_model.dart';
@@ -45,8 +49,8 @@ class _DrinkDetails extends State<DrinkDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mix-It!"),
+      appBar: const MainAppBar(
+        height: kAppBarHeight,
       ),
       endDrawer: SideNav(
         context: context,

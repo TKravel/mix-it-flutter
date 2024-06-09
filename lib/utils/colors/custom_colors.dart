@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomColors {
-  static const MaterialColor kPrimary =
-      MaterialColor(_kmainPrimaryValue, <int, Color>{
+  static MaterialColor kPrimary =
+      const MaterialColor(_kmainPrimaryValue, <int, Color>{
     50: Color(0xFFE2E3E6),
     100: Color(0xFFB6B8BF),
     200: Color(0xFF858995),

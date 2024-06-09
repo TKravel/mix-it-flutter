@@ -1,5 +1,8 @@
+// ignore: unused_import
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:mix_it/utils/constants/text_constants.dart';
+import 'package:mix_it/utils/constants/constants.dart';
 
 class LandingHero extends StatelessWidget {
   const LandingHero({super.key});

@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+
 import 'package:mix_it/screens/home_page/componets/landing_hero.dart';
-import 'package:mix_it/utils/colors/custom_colors.dart';
-import 'package:mix_it/widgets/app_bar.dart';
+import 'package:mix_it/utils/constants/constants.dart';
+import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
 import 'package:mix_it/widgets/drink_list/selection_grid.dart';
 
 import 'package:mix_it/widgets/side_nav.dart';
@@ -17,27 +19,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: TextButton(
-            style: ButtonStyle(
-              foregroundColor:
-                  WidgetStateColor.resolveWith((Set<WidgetState> states) {
-                return CustomColors.kAccent.shade100;
-              }),
-            ),
-            onPressed: () => {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                  (_) => false)
-            },
-            child: const Text(
-              "Mix-It!",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
+        appBar: const MainAppBar(
+          height: kAppBarHeight,
         ),
         endDrawer: SideNav(
           context: context,

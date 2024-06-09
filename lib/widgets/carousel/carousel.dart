@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
+// ignore: unused_import
+import 'dart:developer';
 import 'dart:convert';
-import 'package:carousel_slider/carousel_slider.dart';
 
+import 'package:flutter/material.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mix_it/services/network.dart';
 import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/utils/colors/custom_colors.dart';
@@ -41,7 +44,6 @@ class _CarouselState extends State<Carousel> {
     for (var i = 0; i < similarJson['drinks'].length; i++) {
       similarDrinks.add(Drink.fromJson(similarJson['drinks'][i]));
     }
-    print(similarDrinks.length);
     setState(() {
       isLoading = false;
     });

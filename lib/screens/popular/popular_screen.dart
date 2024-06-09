@@ -1,4 +1,8 @@
+// ignore: unused_import
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
 
 import 'package:mix_it/widgets/side_nav.dart';
 import 'package:mix_it/widgets/drink_list/selection_grid.dart';
@@ -11,8 +15,8 @@ class PopularScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mix-It!"),
+      appBar: const MainAppBar(
+        height: 60,
       ),
       endDrawer: SideNav(
         context: context,

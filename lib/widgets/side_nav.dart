@@ -1,10 +1,13 @@
+// ignore: unused_import
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
-import 'package:mix_it/screens/drink_details/drink_details.dart';
 import 'package:mix_it/screens/home_page/home_page.dart';
 import 'package:mix_it/screens/latest_drinks/newly_added_screen.dart';
 import 'package:mix_it/screens/popular/popular_screen.dart';
 import 'package:mix_it/screens/random_drink/random_drink_screen.dart';
+import 'package:mix_it/utils/constants/constants.dart';
 
 class SideNav extends Drawer {
   const SideNav({super.key, required this.context});
@@ -12,8 +15,7 @@ class SideNav extends Drawer {
   final BuildContext context;
 
   _handleNavSelection(String selection) {
-    Widget newScreen = HomePage();
-    print(selection);
+    Widget newScreen = const HomePage();
     switch (selection) {
       case 'popular':
         newScreen = const PopularScreen();
@@ -39,13 +41,22 @@ class SideNav extends Drawer {
           ),
           TextButton(
               onPressed: () => {_handleNavSelection('popular')},
-              child: const Text("Popular")),
+              child: Text(
+                "Popular",
+                style: kDrawerButtonTextStyles,
+              )),
           TextButton(
               onPressed: () => {_handleNavSelection('new')},
-              child: const Text("New")),
+              child: Text(
+                "New",
+                style: kDrawerButtonTextStyles,
+              )),
           TextButton(
               onPressed: () => {_handleNavSelection('random')},
-              child: const Text("Random")),
+              child: Text(
+                "Random",
+                style: kDrawerButtonTextStyles,
+              )),
         ],
       ),
     );

@@ -1,9 +1,10 @@
-import 'dart:convert';
+// ignore: unused_import
 import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:mix_it/screens/drink_details/components/drink_info.dart';
-import 'package:mix_it/screens/drink_details/drink_details.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
+import 'package:mix_it/screens/drink_details/drink_details.dart';
 import 'package:mix_it/services/network.dart';
 import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/widgets/drink_list/drink_card_sm.dart';
