@@ -12,7 +12,7 @@ class SideNav extends Drawer {
   final BuildContext context;
 
   _handleNavSelection(String selection) {
-    Widget newScreen = const HomePage();
+    Widget newScreen = HomePage();
     print(selection);
     switch (selection) {
       case 'popular':

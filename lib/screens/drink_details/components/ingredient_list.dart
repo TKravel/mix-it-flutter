@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mix_it/utils/colors/custom_colors.dart';
 
 class IngredientList extends StatelessWidget {
   const IngredientList({super.key, required this.ingredients});
@@ -12,13 +13,31 @@ class IngredientList extends StatelessWidget {
     for (var entry in ingredients.entries) {
       // ingredientRows.add(Text('${entry.key} - ${entry.value}'));
       ingredientRows.add(TableRow(children: [
-        TableCell(child: Text(entry.key)),
-        const TableCell(
+        TableCell(
             child: Text(
-          "--",
-          style: TextStyle(color: Colors.transparent),
+          entry.key,
+          style: TextStyle(
+            color: CustomColors.kPrimary.shade50,
+            fontSize: 20,
+          ),
         )),
-        TableCell(child: Text(entry.value)),
+        TableCell(
+            child: Text(
+          "-",
+          style: TextStyle(
+            color: CustomColors.kPrimary.shade50,
+            fontSize: 20,
+          ),
+        )),
+        TableCell(
+          child: Text(
+            entry.value,
+            style: TextStyle(
+              color: CustomColors.kPrimary.shade50,
+              fontSize: 20,
+            ),
+          ),
+        ),
       ]));
     }
 

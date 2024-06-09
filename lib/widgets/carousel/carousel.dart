@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:mix_it/services/network.dart';
 import 'package:mix_it/models/drink_model.dart';
+import 'package:mix_it/utils/colors/custom_colors.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({super.key, required this.ingredients});
@@ -79,7 +80,13 @@ class _CarouselState extends State<Carousel> {
                       height: 200,
                     ),
                   ),
-                  Text(similarDrinks[itemIndex].strDrink!)
+                  Text(
+                    similarDrinks[itemIndex].strDrink!,
+                    style: TextStyle(
+                      color: CustomColors.kPrimary.shade50,
+                      fontSize: 20,
+                    ),
+                  )
                 ],
               ),
             ),
@@ -88,12 +95,8 @@ class _CarouselState extends State<Carousel> {
           left: 0,
           top: 185,
           child: Ink(
-            decoration: const ShapeDecoration(
-              shape: CircleBorder(),
-              color: Colors.grey,
-            ),
             child: IconButton(
-              color: Colors.lightBlue,
+              color: CustomColors.kAccent.shade100,
               iconSize: 40,
               onPressed: () => buttonCarouselController.previousPage(
                   duration: const Duration(milliseconds: 300),
@@ -108,12 +111,13 @@ class _CarouselState extends State<Carousel> {
           right: 0,
           top: 185,
           child: IconButton(
+            color: CustomColors.kAccent.shade100,
+            iconSize: 40,
             onPressed: () => buttonCarouselController.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear),
             icon: const Icon(
               Icons.chevron_right_rounded,
-              size: 40,
             ),
           ),
         )
