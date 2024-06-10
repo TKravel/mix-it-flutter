@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mix_it/screens/drink_details/drink_details.dart';
 import 'package:mix_it/services/network.dart';
 import 'package:mix_it/models/drink_model.dart';
+import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/drink_list/drink_card_sm.dart';
 
 class SelectionGrid extends StatefulWidget {
@@ -45,19 +46,25 @@ class _SelectionGrid extends State<SelectionGrid> {
 
   handleSelection(String slectedId) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DrinkDetails(drinkId: slectedId)));
+      context,
+      MaterialPageRoute(
+        builder: (context) => DrinkDetails(drinkId: slectedId),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ...drinks.map((drink) {
-          return DrinkCardSm(drinkData: drink, handleTap: handleSelection);
-        })
-      ],
-    );
+    if (drinks.isEmpty) {
+      return kShimmerCards;
+    } else {
+      return Column(
+        children: [
+          ...drinks.map((drink) {
+            return DrinkCardSm(drinkData: drink, handleTap: handleSelection);
+          })
+        ],
+      );
+    }
   }
 }

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'package:mix_it/screens/drink_details/drink_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mix_it/services/network.dart';
 import 'package:mix_it/models/drink_model.dart';
@@ -49,6 +50,15 @@ class _CarouselState extends State<Carousel> {
     });
   }
 
+  _handleTap(String drinkId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DrinkDetails(drinkId: drinkId),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,25 +81,30 @@ class _CarouselState extends State<Carousel> {
                 (BuildContext context, int itemIndex, int pageViewIndex) =>
                     Container(
               width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(300),
-                    child: Image.network(
-                      similarDrinks[itemIndex].strDrinkThumb!,
-                      width: 200,
-                      height: 200,
+              child: InkWell(
+                onTap: () {
+                  _handleTap(similarDrinks[itemIndex].idDrink!);
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(300),
+                      child: Image.network(
+                        similarDrinks[itemIndex].strDrinkThumb!,
+                        width: 200,
+                        height: 200,
+                      ),
                     ),
-                  ),
-                  Text(
-                    similarDrinks[itemIndex].strDrink!,
-                    style: TextStyle(
-                      color: CustomColors.kPrimary.shade50,
-                      fontSize: 20,
-                    ),
-                  )
-                ],
+                    Text(
+                      similarDrinks[itemIndex].strDrink!,
+                      style: TextStyle(
+                        color: CustomColors.kPrimary.shade50,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

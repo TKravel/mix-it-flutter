@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+
 import 'package:mix_it/utils/constants/constants.dart';
 
 class LandingHero extends StatelessWidget {
@@ -17,13 +18,16 @@ class LandingHero extends StatelessWidget {
             'Mix-It!',
             style: TextStyle(
               color: kTextOnPrimary,
+              fontSize: 30,
             ),
           ),
           Text(
             'Instructions, ingredents, and suggestions. Everything you need to mix up your night.',
             style: TextStyle(
               color: kTextOnPrimary,
+              fontSize: 20,
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),

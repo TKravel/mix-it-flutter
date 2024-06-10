@@ -22,7 +22,6 @@ class _DrinkInfo extends State<DrinkInfo> {
   @override
   Widget build(BuildContext context) {
     final _screenWidth = MediaQuery.of(context).size.width;
-    print(_screenWidth);
     return Column(
       children: [
         const SizedBox(height: 40),
