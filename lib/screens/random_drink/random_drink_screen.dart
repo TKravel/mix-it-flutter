@@ -43,7 +43,10 @@ class _RandomDrinkScreen extends State<RandomDrinkScreen> {
   @override
   Widget build(BuildContext context) {
     if (drinkId != null) {
-      return DrinkDetails(drinkId: drinkId!);
+      return DrinkDetails(
+        drinkRef: drinkId!,
+        refType: "id",
+      );
     } else {
       return Scaffold(
         appBar: const MainAppBar(

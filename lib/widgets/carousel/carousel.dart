@@ -54,7 +54,10 @@ class _CarouselState extends State<Carousel> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DrinkDetails(drinkId: drinkId),
+        builder: (context) => DrinkDetails(
+          drinkRef: drinkId,
+          refType: "id",
+        ),
       ),
     );
   }

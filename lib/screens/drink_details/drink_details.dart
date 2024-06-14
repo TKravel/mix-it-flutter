@@ -13,9 +13,11 @@ import 'package:mix_it/screens/drink_details/components/drink_info.dart';
 import 'package:mix_it/services/network.dart';
 
 class DrinkDetails extends StatefulWidget {
-  const DrinkDetails({super.key, required this.drinkId});
+  const DrinkDetails(
+      {super.key, required this.drinkRef, required this.refType});
 
-  final String drinkId;
+  final String drinkRef;
+  final String refType;
 
   @override
   State<StatefulWidget> createState() {
@@ -35,8 +37,10 @@ class _DrinkDetails extends State<DrinkDetails> {
   }
 
   _getSelectedDrinkData() async {
-    const String route = "/lookup.php";
-    Map<String, String> params = {'i': widget.drinkId};
+    String route = widget.refType == 'id' ? "/lookup.php" : "/search.php";
+    Map<String, String> params = widget.refType == 'id'
+        ? {'i': widget.drinkRef}
+        : {'s': widget.drinkRef};
     Network networkHandler = Network();
     String response = await networkHandler.postRequest(route, params);
     var drinkJson = jsonDecode(response);

@@ -48,7 +48,10 @@ class _SelectionGrid extends State<SelectionGrid> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DrinkDetails(drinkId: slectedId),
+        builder: (context) => DrinkDetails(
+          drinkRef: slectedId,
+          refType: "id",
+        ),
       ),
     );
   }

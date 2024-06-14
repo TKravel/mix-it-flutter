@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:mix_it/screens/home_page/componets/search_bar.dart';
 
 import 'package:mix_it/utils/constants/constants.dart';
 
@@ -14,6 +15,7 @@ class LandingHero extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
+          const AutoSearchBar(),
           Text(
             'Mix-It!',
             style: TextStyle(
