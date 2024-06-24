@@ -11,8 +11,14 @@ import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/utils/colors/custom_colors.dart';
 
 class Carousel extends StatefulWidget {
-  const Carousel({super.key, required this.ingredients});
+  const Carousel(
+      {super.key,
+      required this.drinkId,
+      required this.drinkCategory,
+      required this.ingredients});
 
+  final String drinkId;
+  final String drinkCategory;
   final Map<String, String> ingredients;
 
   @override
@@ -35,15 +41,16 @@ class _CarouselState extends State<Carousel> {
   _getSimilarDrinks() async {
     const String similiarRoute = "/filter.php";
     String ingred1 = widget.ingredients.keys.elementAt(0).replaceAll(" ", "_");
-    String ingred2 = widget.ingredients.keys.elementAt(1).replaceAll(" ", "_");
-    Map<String, String> params2 = {'i': '$ingred1,$ingred2'};
+    Map<String, String> params2 = {'i': ingred1};
     Network networkHandler = Network();
     String similarResponse =
-        await networkHandler.postRequest(similiarRoute, params2);
+        await networkHandler.apiPostRequest(similiarRoute, params2);
     var similarJson = jsonDecode(similarResponse);
     similarDrinks = [];
     for (var i = 0; i < similarJson['drinks'].length; i++) {
-      similarDrinks.add(Drink.fromJson(similarJson['drinks'][i]));
+      if (similarJson['drinks'][i]["idDrink"] != widget.drinkId) {
+        similarDrinks.add(Drink.fromJson(similarJson['drinks'][i]));
+      }
     }
     setState(() {
       isLoading = false;

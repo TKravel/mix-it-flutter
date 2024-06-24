@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
-import 'package:mix_it/widgets/side_nav.dart';
+import 'package:mix_it/widgets/side_nav/side_nav.dart';
 import 'package:mix_it/screens/drink_details/drink_details.dart';
 import 'package:mix_it/services/network.dart';
 
@@ -32,7 +32,7 @@ class _RandomDrinkScreen extends State<RandomDrinkScreen> {
     dynamic params;
 
     Network networkHandler = Network();
-    String response = await networkHandler.postRequest(route, params);
+    String response = await networkHandler.apiPostRequest(route, params);
     var json = await jsonDecode(response);
     setState(() {
       if (json['drinks'][0]['idDrink'] == null) return;

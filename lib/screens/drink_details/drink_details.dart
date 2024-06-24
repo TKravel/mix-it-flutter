@@ -7,7 +7,7 @@ import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
 import 'package:mix_it/widgets/carousel/carousel.dart';
 
-import 'package:mix_it/widgets/side_nav.dart';
+import 'package:mix_it/widgets/side_nav/side_nav.dart';
 import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/screens/drink_details/components/drink_info.dart';
 import 'package:mix_it/services/network.dart';
@@ -42,7 +42,7 @@ class _DrinkDetails extends State<DrinkDetails> {
         ? {'i': widget.drinkRef}
         : {'s': widget.drinkRef};
     Network networkHandler = Network();
-    String response = await networkHandler.postRequest(route, params);
+    String response = await networkHandler.apiPostRequest(route, params);
     var drinkJson = jsonDecode(response);
     drinkData = Drink.fromJson(drinkJson['drinks'][0]);
     setState(() {
@@ -67,8 +67,26 @@ class _DrinkDetails extends State<DrinkDetails> {
             Column(
               children: [
                 DrinkInfo(drinkData),
-                Carousel(
-                  ingredients: drinkData.ingredients!,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Similar drinks",
+                        style: TextStyle(
+                          color: kTextOnPrimary,
+                          fontSize: 28,
+                        ),
+                      ),
+                      Carousel(
+                        drinkId: drinkData.idDrink!,
+                        drinkCategory: drinkData.strCategory!,
+                        ingredients: drinkData.ingredients!,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             )

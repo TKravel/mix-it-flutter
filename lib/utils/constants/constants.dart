@@ -9,6 +9,7 @@ import 'package:mix_it/utils/colors/custom_colors.dart';
 const double kAppBarHeight = 60.0;
 
 Color kTextOnPrimary = CustomColors.kPrimary.shade50;
+Color kSivNavBackground = const Color(0xff1a1b21);
 
 // BUTTON CONSTANTS
 

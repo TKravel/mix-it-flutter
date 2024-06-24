@@ -8,9 +8,10 @@ import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/utils/colors/custom_colors.dart';
 
 class DrinkCardSm extends StatelessWidget {
-  const DrinkCardSm(
+  const DrinkCardSm(this.categoryName,
       {super.key, required this.drinkData, required this.handleTap});
 
+  final String? categoryName;
   final Drink drinkData;
   final Function handleTap;
 
@@ -46,6 +47,7 @@ class DrinkCardSm extends StatelessWidget {
                     children: [
                       Text(
                         drinkData.strDrink!,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: CustomColors.kPrimary.shade50,
                           fontWeight: FontWeight.bold,
@@ -53,7 +55,9 @@ class DrinkCardSm extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        drinkData.strCategory!,
+                        drinkData.strCategory == null
+                            ? categoryName!
+                            : drinkData.strCategory!,
                         style: TextStyle(
                           color: CustomColors.kPrimary.shade200,
                         ),

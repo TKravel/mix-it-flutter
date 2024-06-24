@@ -3,12 +3,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import 'package:mix_it/screens/home_page/componets/landing_hero.dart';
+import 'package:mix_it/screens/home_page/componets/search_bar.dart';
 import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
 import 'package:mix_it/widgets/drink_list/selection_grid.dart';
-
-import 'package:mix_it/widgets/side_nav.dart';
+import 'package:mix_it/widgets/side_nav/side_nav.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,12 +24,28 @@ class HomePage extends StatelessWidget {
         endDrawer: SideNav(
           context: context,
         ),
-        body: ListView(children: [
-          Column(
-            children: [
-              const LandingHero(),
-              SelectionGrid(null, route: route),
-            ],
+        body: Column(children: [
+          const Padding(
+            padding: EdgeInsets.all(20),
+            child: AutoSearchBar(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Text(
+              'Top Searches',
+              style: TextStyle(
+                color: kTextOnPrimary,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const Expanded(
+            child: SelectionGrid(
+              null,
+              route: '/popular.php',
+              params: null,
+            ),
           ),
         ]),
       ),

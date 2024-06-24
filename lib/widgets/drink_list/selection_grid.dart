@@ -11,10 +11,12 @@ import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/drink_list/drink_card_sm.dart';
 
 class SelectionGrid extends StatefulWidget {
-  const SelectionGrid(this.params, {super.key, required this.route});
+  const SelectionGrid(this.categoryName,
+      {super.key, required this.route, required this.params});
 
+  final String? categoryName;
   final String route;
-  final dynamic params;
+  final Map<String, String>? params;
 
   @override
   State<SelectionGrid> createState() {
@@ -32,7 +34,8 @@ class _SelectionGrid extends State<SelectionGrid> {
 
   _getDrinks() async {
     Network networkHandler = Network();
-    String json = await networkHandler.postRequest(widget.route, widget.params);
+    String json =
+        await networkHandler.apiPostRequest(widget.route, widget.params);
     var drinkData = await jsonDecode(json);
     // drinkData.map((drink) => drinks.add(Drink.fromJson(drink))); //
     List<Drink> drinkArr = [];
@@ -61,12 +64,12 @@ class _SelectionGrid extends State<SelectionGrid> {
     if (drinks.isEmpty) {
       return kShimmerCards;
     } else {
-      return Column(
-        children: [
-          ...drinks.map((drink) {
-            return DrinkCardSm(drinkData: drink, handleTap: handleSelection);
-          })
-        ],
+      return ListView.builder(
+        itemCount: drinks.length,
+        itemBuilder: (context, int) {
+          return DrinkCardSm(widget.categoryName,
+              drinkData: drinks[int], handleTap: handleSelection);
+        },
       );
     }
   }

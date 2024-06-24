@@ -22,7 +22,7 @@ class Drink {
     strCreativeCommonsConfirmed = json['strCreativeCommonsConfirmed'];
     dateModified = json['dateModified'];
 
-    // restructure ingredients come from api for easier handling
+    // restructure ingredients coming from api for easier handling
     Map<String, String> ingredientMap = {};
     Iterable.generate(15).forEach((i) {
       if (json['strMeasure${i + 1}'] != null &&

@@ -1,10 +1,11 @@
 // ignore: unused_import
 import 'dart:developer';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+
 import 'package:mix_it/screens/drink_details/drink_details.dart';
+import 'package:mix_it/services/network.dart';
 
 class AutoSearchBar extends StatefulWidget {
   const AutoSearchBar({super.key});
@@ -18,31 +19,14 @@ class AutoSearchBar extends StatefulWidget {
 class _AutoSearchBar extends State<AutoSearchBar> {
   late Iterable<String> _lastOptions = <String>[];
   String? _searchQuery;
-  // TextEditingController autocompleteController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    // autocompleteController.addListener(_inputHandler);
-  }
-
-  @override
-  void dispose() {
-    // autocompleteController.dispose();
-    super.dispose();
-  }
-
-  // _inputHandler() {
-  //   final inputValue = autocompleteController.text;
-  //   setState(() {
-  //     _userInput = inputValue;
-  //   });
-  // }
+  double _searchBarWidth = 100;
 
   _getSuggestions(userInput) async {
+    Network network = Network();
     Uri endPoint =
         Uri.https("www.tkdevdesign.com", "/mix-it/drinks/autocomplete");
-    var response = await http.post(endPoint, body: {"userInput": userInput});
+    Map<String, dynamic> pkg = {"userInput": userInput};
+    var response = await network.postRequest(endPoint, pkg);
     List<String> autoList =
         (jsonDecode(response.body) as List<dynamic>).cast<String>();
     return autoList;
@@ -98,34 +82,50 @@ class _AutoSearchBar extends State<AutoSearchBar> {
           FocusNode fieldFocusNode,
           VoidCallback onFieldSubmitted) {
         // Implement the text field UI
-        return SearchBar(
-          controller: autocompleteController,
-          focusNode: fieldFocusNode,
-          onChanged: (val) {
-            print(val);
-          },
-          onSubmitted: (text) {
-            // Handle the submission of the selected suggestion
-            // Implement the logic for the selection action
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            _searchBarWidth = (constraints.maxWidth);
+            return SearchBar(
+              hintText: "Search by name...",
+              controller: autocompleteController,
+              focusNode: fieldFocusNode,
+              onChanged: (val) {
+                print(val);
+              },
+              onSubmitted: (text) {
+                // Handle the submission of the selected suggestion
+                // Implement the logic for the selection action
+              },
+            );
           },
         );
       },
       optionsViewBuilder: (BuildContext context,
           AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
-        // Implement the UI for displaying the suggestion options
-        return Material(
-          elevation: 4.0,
-          child: Container(
-            color: Colors.grey[900],
-            child: ListView(
-              children: options.map((String option) {
-                return ListTile(
-                  title: Text(option),
-                  onTap: () async {
-                    await _handleSelection(option);
-                  },
-                );
-              }).toList(),
+        return Align(
+          alignment: Alignment.topLeft,
+          child: Material(
+            elevation: 4.0,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            borderRadius: BorderRadius.circular(
+              6,
+            ),
+            child: Container(
+              width: _searchBarWidth,
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                children: options.map((String option) {
+                  return ListTile(
+                    title: Text(option),
+                    onTap: () async {
+                      await _handleSelection(option);
+                    },
+                  );
+                }).toList(),
+              ),
             ),
           ),
         );
