@@ -2,8 +2,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:mix_it/utils/colors/custom_colors.dart';
-import 'package:mix_it/utils/constants/constants.dart';
 
 class IngredientList extends StatelessWidget {
   const IngredientList({super.key, required this.ingredients});
@@ -12,52 +10,28 @@ class IngredientList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // create row items
-    List<TableRow> ingredientRows = List.empty(growable: true);
-    for (var entry in ingredients.entries) {
-      // ingredientRows.add(Text('${entry.key} - ${entry.value}'));
-      ingredientRows.add(TableRow(children: [
-        TableCell(
-            child: Text(
-          entry.key,
-          style: TextStyle(
-            color: CustomColors.kPrimary.shade50,
-            fontSize: 20,
-          ),
-        )),
-        TableCell(
-          child: Text(
-            " (${entry.value.trim()})",
-            style: TextStyle(
-              color: CustomColors.kPrimary.shade50,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ]));
-    }
-
-    return Center(
-        child: Column(
+    return Column(
       children: [
         Text(
           'Ingredients',
-          style: TextStyle(
-            color: kTextOnPrimary,
-            fontSize: 26,
-          ),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * .75,
-          child: Table(
-            columnWidths: Map.from(
-              {0: const FlexColumnWidth(), 2: const IntrinsicColumnWidth()},
-            ),
-            // inject rows created above
-            children: [...ingredientRows],
-          ),
+        const SizedBox(
+          height: 20,
         ),
+        Column(
+          children: [
+            for (var entry in ingredients.entries)
+              if (entry.key != "")
+                Text(
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.left,
+                  textWidthBasis: TextWidthBasis.parent,
+                  "${entry.key} (${entry.value.trim()})",
+                ),
+          ],
+        )
       ],
-    ));
+    );
   }
 }

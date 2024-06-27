@@ -33,7 +33,7 @@ class _DrinkDetails extends State<DrinkDetails> {
   @override
   void initState() {
     super.initState();
-    _getSelectedDrinkData();
+    widget.drinkRef == "random" ? _getRandomDrink() : _getSelectedDrinkData();
   }
 
   _getSelectedDrinkData() async {
@@ -45,6 +45,19 @@ class _DrinkDetails extends State<DrinkDetails> {
     String response = await networkHandler.apiPostRequest(route, params);
     var drinkJson = jsonDecode(response);
     drinkData = Drink.fromJson(drinkJson['drinks'][0]);
+    setState(() {
+      init = 'done';
+    });
+  }
+
+  _getRandomDrink() async {
+    String route = '/random.php';
+
+    Network networkHandler = Network();
+    String response = await networkHandler.apiPostRequest(route, null);
+    var json = await jsonDecode(response);
+    if (json['drinks'][0]['idDrink'] == null) return;
+    drinkData = Drink.fromJson(json['drinks'][0]);
     setState(() {
       init = 'done';
     });
@@ -67,30 +80,20 @@ class _DrinkDetails extends State<DrinkDetails> {
             Column(
               children: [
                 DrinkInfo(drinkData),
-                Padding(
+                Container(
+                  decoration: BoxDecoration(color: kScaffoldContainer),
+                  margin: const EdgeInsets.only(top: 15),
                   padding: const EdgeInsets.symmetric(
                     vertical: 16,
                   ),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Similar drinks",
-                        style: TextStyle(
-                          color: kTextOnPrimary,
-                          fontSize: 28,
-                        ),
-                      ),
-                      Carousel(
-                        drinkId: drinkData.idDrink!,
-                        drinkCategory: drinkData.strCategory!,
-                        ingredients: drinkData.ingredients!,
-                      ),
-                    ],
+                  child: Carousel(
+                    drinkId: drinkData.idDrink!,
+                    drinkCategory: drinkData.strCategory!,
+                    ingredients: drinkData.ingredients!,
                   ),
                 ),
               ],
             )
-          // SimilarDrinks(),
         ],
       ),
     );

@@ -28,7 +28,7 @@ class DrinkCardSm extends StatelessWidget {
             child: Row(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(300),
+                  borderRadius: BorderRadius.circular(50),
                   child: Image.network(
                     drinkData.strDrinkThumb!,
                     width: 100,
@@ -46,21 +46,18 @@ class DrinkCardSm extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        drinkData.strDrink!,
+                        style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: CustomColors.kPrimary.shade50,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                        drinkData.strDrink!,
                       ),
                       Text(
                         drinkData.strCategory == null
                             ? categoryName!
                             : drinkData.strCategory!,
-                        style: TextStyle(
-                          color: CustomColors.kPrimary.shade200,
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: CustomColors.kPrimary.shade200),
                       )
                     ],
                   ),

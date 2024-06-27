@@ -66,9 +66,28 @@ class _SelectionGrid extends State<SelectionGrid> {
     } else {
       return ListView.builder(
         itemCount: drinks.length,
-        itemBuilder: (context, int) {
-          return DrinkCardSm(widget.categoryName,
-              drinkData: drinks[int], handleTap: handleSelection);
+        itemBuilder: (context, idx) {
+          if (idx != drinks.length - 1) {
+            return DrinkCardSm(widget.categoryName,
+                drinkData: drinks[idx], handleTap: handleSelection);
+          } else {
+            return Column(
+              children: [
+                DrinkCardSm(widget.categoryName,
+                    drinkData: drinks[idx], handleTap: handleSelection),
+                SizedBox(
+                  height: 30,
+                  width: double.infinity,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 10, color: kPageBottomBorder))),
+                  ),
+                )
+              ],
+            );
+          }
         },
       );
     }

@@ -2,7 +2,6 @@
 import "dart:developer";
 
 import "package:flutter/material.dart";
-import "package:mix_it/utils/colors/custom_colors.dart";
 
 import "package:mix_it/utils/constants/constants.dart";
 

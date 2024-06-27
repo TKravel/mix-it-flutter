@@ -30,22 +30,33 @@ class Carousel extends StatefulWidget {
 class _CarouselState extends State<Carousel> {
   var isLoading = true;
   List<Drink> similarDrinks = [];
+  int ingredientsCount = 0;
+  int currentIdx = 1;
+  bool noSimilarDrinks = false;
   CarouselController buttonCarouselController = CarouselController();
 
   @override
   void initState() {
     super.initState();
-    _getSimilarDrinks();
+    ingredientsCount = widget.ingredients.keys.length;
+    _getSimilarDrinks(_getIngredientString());
   }
 
-  _getSimilarDrinks() async {
+  _getSimilarDrinks(ingredient) async {
+    if (currentIdx > ingredientsCount) {
+      noSimilarDrinks = true;
+      isLoading = false;
+    }
     const String similiarRoute = "/filter.php";
-    String ingred1 = widget.ingredients.keys.elementAt(0).replaceAll(" ", "_");
-    Map<String, String> params2 = {'i': ingred1};
+    Map<String, String> params2 = {'i': ingredient};
     Network networkHandler = Network();
     String similarResponse =
         await networkHandler.apiPostRequest(similiarRoute, params2);
     var similarJson = jsonDecode(similarResponse);
+    if (similarJson['drinks'].length == 0) {
+      currentIdx++;
+      _getSimilarDrinks(_getIngredientString());
+    }
     similarDrinks = [];
     for (var i = 0; i < similarJson['drinks'].length; i++) {
       if (similarJson['drinks'][i]["idDrink"] != widget.drinkId) {
@@ -55,6 +66,10 @@ class _CarouselState extends State<Carousel> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  _getIngredientString() {
+    return widget.ingredients.keys.elementAt(currentIdx).replaceAll(" ", "_");
   }
 
   _handleTap(String drinkId) {
@@ -75,13 +90,15 @@ class _CarouselState extends State<Carousel> {
       children: [
         if (isLoading == true)
           const Text("loading...")
+        else if (noSimilarDrinks)
+          const Text("No similar drinks...")
         else
           CarouselSlider.builder(
             itemCount: similarDrinks.length,
             carouselController: buttonCarouselController,
             options: CarouselOptions(
               autoPlay: false,
-              height: 400,
+              height: 300,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
               aspectRatio: 2.0,
@@ -90,7 +107,7 @@ class _CarouselState extends State<Carousel> {
             itemBuilder:
                 (BuildContext context, int itemIndex, int pageViewIndex) =>
                     Container(
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               child: InkWell(
                 onTap: () {
                   _handleTap(similarDrinks[itemIndex].idDrink!);
@@ -98,20 +115,23 @@ class _CarouselState extends State<Carousel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(300),
+                      borderRadius: BorderRadius.circular(100),
                       child: Image.network(
                         similarDrinks[itemIndex].strDrinkThumb!,
                         width: 200,
                         height: 200,
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       similarDrinks[itemIndex].strDrink!,
-                      style: TextStyle(
-                        color: CustomColors.kPrimary.shade50,
-                        fontSize: 20,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     )
                   ],
                 ),
@@ -120,7 +140,7 @@ class _CarouselState extends State<Carousel> {
           ),
         Positioned(
           left: 0,
-          top: 185,
+          top: 115,
           child: Ink(
             child: IconButton(
               color: CustomColors.kAccent.shade100,
@@ -136,7 +156,7 @@ class _CarouselState extends State<Carousel> {
         ),
         Positioned(
           right: 0,
-          top: 185,
+          top: 115,
           child: IconButton(
             color: CustomColors.kAccent.shade100,
             iconSize: 40,
@@ -147,7 +167,17 @@ class _CarouselState extends State<Carousel> {
               Icons.chevron_right_rounded,
             ),
           ),
-        )
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Text(
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+            "Similar Drinks (${similarDrinks.length})",
+          ),
+        ),
       ],
     );
   }

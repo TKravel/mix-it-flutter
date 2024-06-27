@@ -2,7 +2,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
 
 import 'package:mix_it/widgets/side_nav/side_nav.dart';
@@ -33,11 +32,9 @@ class DrinkListPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-                style: TextStyle(
-                  color: kTextOnPrimary,
-                  fontSize: 20,
-                ),
-                pageHeader),
+              style: Theme.of(context).textTheme.headlineSmall,
+              pageHeader,
+            ),
           ),
           Expanded(
             child: SelectionGrid(

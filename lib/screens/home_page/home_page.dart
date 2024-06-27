@@ -32,12 +32,9 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: Text(
-              'Top Searches',
-              style: TextStyle(
-                color: kTextOnPrimary,
-                fontSize: 20,
-              ),
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
+              'Top Searches',
             ),
           ),
           const Expanded(

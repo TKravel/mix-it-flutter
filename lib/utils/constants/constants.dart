@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -8,6 +6,9 @@ import 'package:mix_it/utils/colors/custom_colors.dart';
 // APP BAR
 const double kAppBarHeight = 60.0;
 
+Color kScaffold = const Color(0xff0b132b);
+Color kScaffoldContainer = const Color(0xff1c2541);
+Color kPageBottomBorder = const Color(0xFF161E35);
 Color kTextOnPrimary = CustomColors.kPrimary.shade50;
 Color kSivNavBackground = const Color(0xff1a1b21);
 

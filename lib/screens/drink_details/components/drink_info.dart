@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/screens/drink_details/components/ingredient_list.dart';
-import 'package:mix_it/utils/colors/custom_colors.dart';
 import 'package:mix_it/utils/constants/constants.dart';
 
 class DrinkInfo extends StatefulWidget {
@@ -22,71 +21,68 @@ class DrinkInfo extends StatefulWidget {
 class _DrinkInfo extends State<DrinkInfo> {
   @override
   Widget build(BuildContext context) {
-    final _screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: 40),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(300),
-          child: Image.network(
-            widget.drinkData.strDrinkThumb!,
-            width: _screenWidth * .75,
-            height: _screenWidth * .75,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(30),
+        Container(
+          decoration: BoxDecoration(color: kScaffoldContainer),
+          padding: const EdgeInsets.fromLTRB(32, 60, 32, 32),
+          margin: const EdgeInsets.only(bottom: 20),
           child: Column(
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(300),
+                child: Image.network(
+                  widget.drinkData.strDrinkThumb!,
+                  width: screenWidth * .7,
+                  height: screenWidth * .7,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
               Text(
                 widget.drinkData.strDrink!,
-                style: TextStyle(
-                  color: CustomColors.kPrimary.shade50,
-                  fontSize: 30,
-                ),
+                style: Theme.of(context).textTheme.displaySmall,
                 textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Text(
                 'Type: ${widget.drinkData.strAlcoholic!}',
-                style: TextStyle(
-                  color: CustomColors.kPrimary.shade50,
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
                 'Glass: ${widget.drinkData.strGlass!}',
-                style: TextStyle(
-                  color: CustomColors.kPrimary.shade50,
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        IngredientList(ingredients: widget.drinkData.ingredients!),
-        Padding(
+        Container(
+          decoration: BoxDecoration(color: kScaffoldContainer),
           padding: const EdgeInsets.all(32),
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          child: IngredientList(ingredients: widget.drinkData.ingredients!),
+        ),
+        Container(
+          decoration: BoxDecoration(color: kScaffoldContainer),
+          padding: const EdgeInsets.all(32),
+          margin: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
               Text(
                 "Instructions",
-                style: TextStyle(
-                  color: kTextOnPrimary,
-                  fontSize: 28,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(
                 height: 16,
               ),
               Text(
                 widget.drinkData.strInstructions!,
-                style: TextStyle(
-                  color: kTextOnPrimary,
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
           ),
