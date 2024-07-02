@@ -10,6 +10,8 @@ import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/drink_list/drink_card_sm.dart';
 
+import 'package:mix_it/utils/shimmer_widgets/drink_lists.dart';
+
 class SelectionGrid extends StatefulWidget {
   const SelectionGrid(this.categoryName,
       {super.key, required this.route, required this.params});
@@ -62,7 +64,7 @@ class _SelectionGrid extends State<SelectionGrid> {
   @override
   Widget build(BuildContext context) {
     if (drinks.isEmpty) {
-      return kShimmerCards;
+      return kShimmerListCards;
     } else {
       return ListView.builder(
         itemCount: drinks.length,
