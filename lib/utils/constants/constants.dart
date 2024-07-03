@@ -28,17 +28,13 @@ Widget kPlaceholder = Shimmer.fromColors(
   period: Duration(seconds: 2),
   enabled: true,
   child: ClipRRect(
-    borderRadius: BorderRadius.circular(300),
-    child: const Column(
-      children: [
-        DecoratedBox(
-          decoration: BoxDecoration(color: Colors.white),
-          child: SizedBox(
-            height: 100,
-            width: 100,
-          ),
-        )
-      ],
+    borderRadius: BorderRadius.circular(50),
+    child: SizedBox(
+      height: 100,
+      width: 100,
+      child: DecoratedBox(
+        decoration: BoxDecoration(color: kScaffoldContainer),
+      ),
     ),
   ),
 );

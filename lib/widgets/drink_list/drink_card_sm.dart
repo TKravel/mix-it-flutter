@@ -2,7 +2,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:mix_it/utils/constants/constants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/utils/colors/custom_colors.dart';
@@ -29,16 +29,10 @@ class DrinkCardSm extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: Image.network(
-                    drinkData.strDrinkThumb!,
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
                     width: 100,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: kPlaceholder,
-                      );
-                    },
+                    image: drinkData.strDrinkThumb!,
                   ),
                 ),
                 Expanded(

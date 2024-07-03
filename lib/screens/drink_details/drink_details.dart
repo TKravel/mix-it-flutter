@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mix_it/utils/constants/constants.dart';
 import 'package:mix_it/widgets/app_bar/main_app_bar.dart';
 import 'package:mix_it/widgets/carousel/carousel.dart';
+import 'package:mix_it/widgets/loaders/full_page_loader.dart';
 
 import 'package:mix_it/widgets/side_nav/side_nav.dart';
 import 'package:mix_it/models/drink_model.dart';
@@ -72,29 +73,32 @@ class _DrinkDetails extends State<DrinkDetails> {
       endDrawer: SideNav(
         context: context,
       ),
-      body: ListView(
-        children: [
-          if (init == 'starting')
-            const Text('Loading')
-          else
-            Column(
-              children: [
-                DrinkInfo(drinkData),
-                Container(
-                  decoration: BoxDecoration(color: kScaffoldContainer),
-                  margin: const EdgeInsets.only(top: 15),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 16,
+      body: Builder(
+        builder: (context) {
+          if (init == 'starting') {
+            return const FullPageLoader();
+          } else {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  DrinkInfo(drinkData),
+                  Container(
+                    decoration: BoxDecoration(color: kScaffoldContainer),
+                    margin: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                    ),
+                    child: Carousel(
+                      drinkId: drinkData.idDrink!,
+                      drinkCategory: drinkData.strCategory!,
+                      ingredients: drinkData.ingredients!,
+                    ),
                   ),
-                  child: Carousel(
-                    drinkId: drinkData.idDrink!,
-                    drinkCategory: drinkData.strCategory!,
-                    ingredients: drinkData.ingredients!,
-                  ),
-                ),
-              ],
-            )
-        ],
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }

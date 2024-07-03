@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mix_it/models/drink_model.dart';
 import 'package:mix_it/screens/drink_details/components/ingredient_list.dart';
 import 'package:mix_it/utils/constants/constants.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DrinkInfo extends StatefulWidget {
   const DrinkInfo(this.drinkData, {super.key});
@@ -32,11 +33,28 @@ class _DrinkInfo extends State<DrinkInfo> {
           child: Column(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(300),
+                borderRadius: BorderRadius.circular(screenWidth * .7 / 2),
                 child: Image.network(
                   widget.drinkData.strDrinkThumb!,
                   width: screenWidth * .7,
                   height: screenWidth * .7,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Shimmer.fromColors(
+                      baseColor: kScaffoldContainer,
+                      highlightColor: kScaffold,
+                      period: const Duration(seconds: 2),
+                      enabled: true,
+                      child: SizedBox(
+                        width: screenWidth * .7,
+                        height: screenWidth * .7,
+                        child: const DecoratedBox(
+                          decoration: BoxDecoration(color: Colors.white),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(
